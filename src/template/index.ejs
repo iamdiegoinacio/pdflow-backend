@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <style>
+      * {
+        font-family: sans-serif;
+      }
+
+      body {
+        margin: 0;
+        padding: 0 30px;
+      }
+
+      body p {
+        text-align: justify;
+      }
+
+      body h1 {
+        margin: .4em 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><%= title %></h1>
+
+    <hr>
+    <% textsArray.forEach(text => { %>
+      <p>
+        <%= text %>
+      </p>
+    <% }) %>
+  </body>
+</html>
