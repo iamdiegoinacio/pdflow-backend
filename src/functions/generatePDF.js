@@ -1,13 +1,11 @@
 const pdf = require('html-pdf')
 
-function generatePDF(html, src, callback) {
+const generatePDF = (html, src, callback) => {
   pdf.create(html).toFile(src, error => {
-    if (error) {
-      callback(error)
-    } else {
-      callback()
-    }
-  })
-}
+    error 
+    ? callback(error)     
+    : callback()
+  });
+};
 
 module.exports = generatePDF
