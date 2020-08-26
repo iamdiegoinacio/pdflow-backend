@@ -1,13 +1,11 @@
-const ejs = require('ejs')
+const ejs = require('ejs');
 
-function htmlGenerate(data, templateSRC, callback) {
+const htmlGenerate = (data, templateSRC, callback) => {
   ejs.renderFile(templateSRC, {...data}, (error, html) => {
-    if (error) {
-      callback(null, error)
-    } else {
-      callback(html, null)
-    }
-  })
-}
+    error
+    ? callback(null, error)
+    : callback(html, null)
+  });
+};
 
 module.exports = htmlGenerate
