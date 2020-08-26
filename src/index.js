@@ -14,7 +14,7 @@ async function main() {
     console.log(`O termo \"${term}\" não foi encontrado em Wikipedia.org.`)
   } else {
     console.log('Gerando resumo...')
-    const { sm_api_content } = await textSummarize(`https://pt.wikipedia.org/wiki/${term.replace(' ', '_')}`, 10)
+    const { sm_api_content } = await textSummarize(`https://pt.wikipedia.org/wiki/${term.replace(' ', '_')}`, 16)
     const textsArray = sm_api_content.split('[BREAK]')
     const data = {title, textsArray}
 
