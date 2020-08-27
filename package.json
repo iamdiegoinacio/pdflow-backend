@@ -8,7 +8,7 @@
     "start": "node src/index.js"
   },
   "keywords": ["pdf", "pdf generator", "html", "web scraping", "javascript", "node.js"],
-  "author": "",
+  "author": "Renato Pereira",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.20.0",
