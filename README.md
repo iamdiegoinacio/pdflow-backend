@@ -1,4 +1,5 @@
 # pdf-creator
+<small>Criado por: <em>Renato Pereira</em></small>
 
 ## Funcionamento
 
