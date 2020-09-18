@@ -10,7 +10,7 @@ async function main() {
   console.log(`\nProcurando pelo termo \"${term}\" em pt.wikipedia.org...\n`)
 
   try {
-    var title = await searchInWikipedia(term.replace(' ', '_'))
+    var title = await searchInWikipedia(term.replaceAll(' ', '_'))
   } catch (error) {
     console.error('Erro ao procurar o termo em wikipedia.org do Brasil.')
   }
@@ -20,7 +20,7 @@ async function main() {
   } else {
     console.log('Gerando resumo...\n')
 
-    const { sm_api_content } = await textSummarize(`https://pt.wikipedia.org/wiki/${term.replace(' ', '_')}`, 16)
+    const { sm_api_content } = await textSummarize(`https://pt.wikipedia.org/wiki/${term.replaceAll(' ', '_')}`, 16)
     const textsArray = sm_api_content.split('[BREAK]')
     const data = {title, textsArray}
 
@@ -28,7 +28,7 @@ async function main() {
 
     try {
       const html = await htmlGenerate(data, 'src\\template\\index.ejs')
-      await generatePDF(html, `src\\pdfs\\${term.replace(' ', '_').toLowerCase()}.pdf`)
+      await generatePDF(html, `src\\pdfs\\${term.replaceAll(' ', '_').toLowerCase()}.pdf`)
       
       console.log('Arquivo PDF gerado com sucesso.\n')
     } catch (error) {
