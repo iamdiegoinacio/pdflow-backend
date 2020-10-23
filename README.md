@@ -1,25 +1,26 @@
 # pdf-creator
-<small>Criado por: <em>Renato Pereira</em></small>
+_Criado por: Renato pereira_
 
-## Funcionamento
+## Sobre
+API de geração automática de PDFs a partir de uma _URL_ e um _título_ informados na chamada da API feita em **Javascript**
 
-Este programa se inicia solicitando o termo que deve ser pesquisado em [Wikipedia.org do Brasil](https://pt.wikipedia.org). Após isso se iniciará o processo de web scraping que será feito usando a biblioteca [**puppeteer**](https://www.npmjs.com/package/puppeteer). Porém, o web scraping, nesse caso, apenas servirá para fazer uma espécie de autenticação para saber se o termo que foi pesquisado existe na Wikipedia. 
+## Endpoints
 
-Se caso não existir, ele retornará o valor _undefined_, caso contrário ele retornará o texto do cabeçalho principal da página. Após fazer esta autenticação, caso exista o termo no site, ele fará uma requisição à uma API que retornará um resumo do texto. Em seguida é feito um tratamento no resumo retornado que criará um array que tem o resumo separado em sentenças. Após esse tratamento, é usado o método `renderFile()` da biblioteca **EJS**, que é um view engine Javascript. No dietório `src/template` existe o arquivo `index.ejs` que possui a base do HTML que será renderizado. Quando o método `renderFile()` é finalizado ele retorna uma variavel que contém o HTML gerado. E após ser retornado o HTML, será usado a biblioteca **html-pdf** para gerar o PDF do HTML que foi retornado. o PDF ficará salvado no diretório `src/pdfs` com o nome do termo que foi pesquisado.
+### POST /pdf
+Rota responsável pro recuperar os dados para geração do PDF e retorná-lo através de um link que será enviado como JSON
 
-## Estrutura
+#### Parâmetros
 
-O programa é divido em funções que ficam no diretório `src/functions`. A primeira função executada é a `searchInWikipedia()` que fará a autenticação e o retorno o cabeçalho. Em seguida é executada a função `textSummarize` que fará a chamada para API que retorna o resumo do texto. Depois é executada a função `htmlGenerate()` que retornará o HTML e e no final a função que cria o PDF.
+1. _url_ (obrigatório): Indica de qual site deve ser criado o resumo para a geração do PDF
+2. _pdfTitle_ (obrigatório): Indica qual o título deve ser colocado no cabeçalho do PDF que será criado
 
-## Avisos
+#### Respostas
 
-1. O input que é feito no início do programa não aceita carateres especiais. Então não é possível fazer certas pesquisas no Wikipedia do brasil em que as palavras precisam acento.
-2. A API que é feita a requisição para gerar o resumo precisa de uma API KEY que não foi upada para que minha API KEY não fosse usada por vocês. Caso queiram usar, gerem sua API KEY no site da API que é o site [smmry.com](https://smmry.com/). A Geração da API KEY é gratuita e você pode fazer até 100 requisições por dia. Você também pode gerar uma API KEY paga. Quando você gerar sua API KEY, crie uma pasta chamada `keys` em `src` e coloque nela um arquivo `keys.json` quem terá a oportunidade ``"smmry_api_key"`` que tem como valor sua API KEY que foi gerada. E assim você pode gerar seus resumos.
+##### 200 OK
+Esta resposta retornará um JSON com oo campo _pdfUrl_ que seu valor será a URL de acesso ao pdf criado
 
-## Project setup
+##### 400 Bad Request
+Esta resposta será dada caso um dos parâmetros que foram solicitados não sejam enviados
 
-### Iniciar a execução do programa
-
-```
-$ npm start
-```
+##### 500 Internal Server Error
+Esta resposta será dada caso qualquer problema na geração do PDF acontecer
