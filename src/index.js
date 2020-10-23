@@ -5,12 +5,15 @@ const generatePDF = require('./functions/generatePDF')
 const textSummarize = require('./functions/textSummarize')
 
 async function main() {
-  const term = readline.question('Qual termo deseja procurar em kikipedia.org do Brasil? ')
+  let term = readline.question('Qual termo deseja procurar em wikipedia.org do Brasil? ')
 
   console.log(`\nProcurando pelo termo \"${term}\" em pt.wikipedia.org...\n`)
 
+  const regexToReplaceWhiteSpaces = new RegExp(' ', 'g')
+  term = term.replace(regexToReplaceWhiteSpaces, '_')
+
   try {
-    var title = await searchInWikipedia(term.replaceAll(' ', '_'))
+    var title = await searchInWikipedia(term)
   } catch (error) {
     console.error('Erro ao procurar o termo em wikipedia.org do Brasil.')
   }
@@ -20,7 +23,7 @@ async function main() {
   } else {
     console.log('Gerando resumo...\n')
 
-    const { sm_api_content } = await textSummarize(`https://pt.wikipedia.org/wiki/${term.replaceAll(' ', '_')}`, 16)
+    const { sm_api_content } = await textSummarize(`https://pt.wikipedia.org/wiki/${term}`, 16)
     const textsArray = sm_api_content.split('[BREAK]')
     const data = {title, textsArray}
 
@@ -28,7 +31,7 @@ async function main() {
 
     try {
       const html = await htmlGenerate(data, 'src\\template\\index.ejs')
-      await generatePDF(html, `src\\pdfs\\${term.replaceAll(' ', '_').toLowerCase()}.pdf`)
+      await generatePDF(html, `src\\pdfs\\${Date.now()}-${term.toLowerCase()}.pdf`)
       
       console.log('Arquivo PDF gerado com sucesso.\n')
     } catch (error) {
