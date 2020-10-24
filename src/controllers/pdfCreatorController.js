@@ -17,22 +17,22 @@ module.exports = {
 
     try {
       const { sm_api_content: data } = await textSummarize(url, 16)
-
       const textsArray = data.split('[BREAK]')
-
       const dataToCreatePDF = { title: pdfTitle, textsArray }
 
-      const html = await htmlGenerate(dataToCreatePDF, path.resolve(__dirname, '..', 'template', 'index.ejs'))
+      try {
+        const html = await htmlGenerate(dataToCreatePDF, path.resolve(__dirname, '..', 'template', 'index.ejs'))
+        const regexToChangeSpacesToUnderlines = new RegExp(' ', 'g')
 
-      const regexToChangeSpacesToUnderlines = new RegExp(' ', 'g')
+        const pdfName = `${Date.now()}-${pdfTitle.replace(regexToChangeSpacesToUnderlines, '_').toLowerCase()}.pdf`
+        await generatePDF(html, path.resolve(__dirname, '..', 'pdfs', pdfName))
+        return response.json({ pdfUrl: `http://localhost:3000/pdfs/${pdfName}` })
+      } catch (error) {
+        return response.status(500).json({ message: 'Error generating pdf file' })
+      }
 
-      const pdfName = `${Date.now()}-${pdfTitle.replace(regexToChangeSpacesToUnderlines, '_').toLowerCase()}.pdf`
-
-      await generatePDF(html, path.resolve(__dirname, '..', 'pdfs', pdfName))
-
-      return response.json({ pdfUrl: `http://localhost:3000/pdfs/${pdfName}` })
-    } catch (error) {
-      return response.status(500).json({ message: 'Internal error when creating the summary' })
+    } catch({ status, message }) {
+      return response.status(status).json({ message })
     }
   }
 }
