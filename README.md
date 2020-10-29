@@ -1,26 +1,26 @@
 # pdf-creator
 _Criado por: Renato pereira_
 
-## Sobre
+## Descrição
 API de geração automática de PDFs a partir de uma _URL_ e um _título_ informados na chamada da API feita em **Javascript**
 
-## Endpoints
+## Sobre
+Projeto criado para ajuda de alunos, professores, entre outros, para que eles possam ter rapidamente uma base para algo mais complexo.
 
-### POST /pdf
-Rota responsável pro recuperar os dados para geração do PDF e retorná-lo através de um link que será enviado como JSON
+## Estrutura do projeto
+Dentro da pasta `src` temos as pastas `controllers`, `functions`, `pdfs`, `template` e os arquivos `index.js` e `router.js`.
 
-#### Parâmetros
+### Arquivo `Index`
+No arquivo `index` temos, apenas, as configurações básicas do express e a importação do arquivo de rotas (`router.js`) da aplicação e uma rota
+única que retorna os arquivos pdf criados nas requisições a API.
 
-1. _url_ (obrigatório): Indica de qual site deve ser criado o resumo para a geração do PDF
-2. _pdfTitle_ (obrigatório): Indica qual o título deve ser colocado no cabeçalho do PDF que será criado
+### Arquivo `Router`
+No arquivo `router` temos a criação rotas da aplicação, importando as funções que são importadas dos controllers da pasta `controllers` que possuem as funcionalidades que serão executadas nas rotas.
 
-#### Respostas
+### Pasta `Controllers`
+A pasta `controllers` poussui dois arquivos: `indexController.js` e `pdfCreatorController.js`:
 
-##### 200 OK
-Esta resposta retornará um JSON com oo campo _pdfUrl_ que seu valor será a URL de acesso ao pdf criado
+#### Aquivo `IndexController`
+Este arquivo possui um objeto com uma função chamada `index()` que é chamada na rota índice da aplicação (rota `'/'`), retornando apenas um JSON com uma mensagem de saudações
 
-##### 400 Bad Request
-Esta resposta será dada caso um dos parâmetros que foram solicitados não sejam enviados
-
-##### 500 Internal Server Error
-Esta resposta será dada caso qualquer problema na geração do PDF acontecer
+#### Arquivo `pdfCreatorController`
