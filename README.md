@@ -24,3 +24,10 @@ A pasta `controllers` poussui dois arquivos: `indexController.js` e `pdfCreatorC
 Este arquivo possui um objeto com uma função chamada `index()` que é chamada na rota índice da aplicação (rota `'/'`), retornando apenas um JSON com uma mensagem de saudações
 
 #### Arquivo `pdfCreatorController`
+Este arquivo possui um objeto com uma fnção chamada `create()` que é responsável pela geração do arquivo PDF. 
+
+Essa função é chamada em uma rota do tipo **POST** chamada `/pdf`, e essa rota recebe dois parâmetros pelo corpo da requisição: `pdfTitle` e `url`.
+
+O parâmetro `pdfTitle` é responsável por retornar o título que será adicionado ao PDF no momento da sua geração. E o parâmetro `url` retornará a URL do site de onde deve ser gerado o resumo para ser transformado em PDF.
+
+Será feito uma análise simples para saber se os parâmetros foram enviados corretamente. Se sim, ele continuará com o fluxo normal, senão retornará um **STATUS 400 (BAD REQUEST)** com a mensagem: "_Insufficient data to generate the pdf_"
