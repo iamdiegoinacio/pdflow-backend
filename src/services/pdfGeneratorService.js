@@ -1,6 +1,6 @@
 const pdf = require('html-pdf')
 
-const generatePDF = (html, src) => {
+const pdfGeneratorService = (html, src) => {
   return new Promise((resolve, reject) => {
     pdf.create(html).toFile(src, error => {
       error ? reject(error) : resolve()
@@ -8,4 +8,4 @@ const generatePDF = (html, src) => {
   })
 }
 
-module.exports = generatePDF
+module.exports = pdfGeneratorService

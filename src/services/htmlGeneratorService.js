@@ -1,6 +1,6 @@
 const ejs = require('ejs');
 
-const htmlGenerate = (data, templateSRC) => {
+const htmlGeneratorService = (data, templateSRC) => {
   return new Promise((resolve, reject) => {
     ejs.renderFile(templateSRC, {...data}, (error, html) => {
       error ? reject(error) : resolve(html)
@@ -8,4 +8,4 @@ const htmlGenerate = (data, templateSRC) => {
   })
 }
 
-module.exports = htmlGenerate
+module.exports = htmlGeneratorService

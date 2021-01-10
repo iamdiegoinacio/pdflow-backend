@@ -1,7 +1,7 @@
 const { request: req, response: res } = require('express')
-const textSummarize = require('../functions/textSummarize')
-const htmlGenerate = require('../functions/htmlGenerate')
-const generatePDF = require('../functions/generatePDF')
+const textSummarizeService = require('../services/textSummarizeService')
+const htmlService = require('../services/htmlGeneratorService')
+const pdfService = require('../services/pdfGeneratorService')
 const path = require('path')
 
 module.exports = {
@@ -16,16 +16,15 @@ module.exports = {
     }
 
     try {
-      const { sm_api_content: data } = await textSummarize(url, 16)
+      const { sm_api_content: data } = await textSummarizeService(url, 16)
       const textsArray = data.split('[BREAK]')
       const dataToCreatePDF = { title: pdfTitle, textsArray }
 
       try {
-        const html = await htmlGenerate(dataToCreatePDF, path.resolve(__dirname, '..', 'template', 'index.ejs'))
-        const regexToChangeSpacesToUnderlines = new RegExp(' ', 'g')
+        const html = await htmlService(dataToCreatePDF, path.resolve(__dirname, '..', 'template', 'index.ejs'))
 
-        const pdfName = `${Date.now()}-${pdfTitle.replace(regexToChangeSpacesToUnderlines, '_').toLowerCase()}.pdf`
-        await generatePDF(html, path.resolve(__dirname, '..', 'pdfs', pdfName))
+        const pdfName = `${Date.now()}-${pdfTitle.replace(/ /g, '_').toLowerCase()}.pdf`
+        await pdfService(html, path.resolve(__dirname, '..', 'pdfs', pdfName))
         return response.json({ pdfUrl: `http://localhost:3000/pdfs/${pdfName}` })
       } catch (error) {
         return response.status(500).json({ message: 'Error generating pdf file' })
