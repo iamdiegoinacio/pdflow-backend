@@ -1,6 +1,10 @@
 import * as ax from 'axios'
-import { smmry_api_key } from '../keys/keys.json'
+import dotenv from 'dotenv'
+import path from 'path'
 
+dotenv.config({ path: path.join(__dirname, '..', '..', '.env') })
+
+const smmry_api_key = process.env.SMMRY_API_KEY
 const axios = ax.default
 
 export default (URL, lenght = 7) => {
