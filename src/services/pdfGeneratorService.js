@@ -1,11 +1,9 @@
-const pdf = require('html-pdf')
+import pdf from 'html-pdf'
 
-const pdfGeneratorService = (html, src) => {
+export default (html, src) => {
   return new Promise((resolve, reject) => {
     pdf.create(html).toFile(src, error => {
       error ? reject(error) : resolve()
     })
   })
 }
-
-module.exports = pdfGeneratorService

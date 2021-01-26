@@ -1,11 +1,9 @@
-const ejs = require('ejs');
+import ejs from 'ejs'
 
-const htmlGeneratorService = (data, templateSRC) => {
+export default (data, templateSRC) => {
   return new Promise((resolve, reject) => {
     ejs.renderFile(templateSRC, {...data}, (error, html) => {
       error ? reject(error) : resolve(html)
     })
   })
 }
-
-module.exports = htmlGeneratorService

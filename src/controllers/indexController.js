@@ -1,4 +1,4 @@
-const { request: req, response: res } = require('express')
+import { request as req, response as res } from 'express'
 
 module.exports = {
   index(request = req, response = res) {

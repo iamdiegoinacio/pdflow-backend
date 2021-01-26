@@ -1,7 +1,9 @@
-const axios = require('axios').default
-const { smmry_api_key } = require('../keys/keys.json')
+import * as ax from 'axios'
+import { smmry_api_key } from '../keys/keys.json'
 
-function textSummarizeService(URL, lenght = 7) {
+const axios = ax.default
+
+export default (URL, lenght = 7) => {
   return new Promise(async (resolve, reject) => {
     try {
       const { data } = await axios.get(`https://api.smmry.com/?SM_API_KEY=${smmry_api_key}&SM_LENGTH=${lenght}&SM_WITH_BREAK&SM_URL=${URL}`)
@@ -21,5 +23,3 @@ function textSummarizeService(URL, lenght = 7) {
     }
   })
 }
-
-module.exports = textSummarizeService

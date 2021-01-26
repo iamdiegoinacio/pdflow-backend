@@ -1,10 +1,10 @@
-const { request: req, response: res } = require('express')
-const textSummarizeService = require('../services/textSummarizeService')
-const htmlService = require('../services/htmlGeneratorService')
-const pdfService = require('../services/pdfGeneratorService')
-const path = require('path')
+import { request as req, response as res } from 'express'
+import textSummarizeService from '../services/textSummarizeService'
+import htmlService from '../services/htmlGeneratorService'
+import pdfService from '../services/pdfGeneratorService'
+import path from 'path'
 
-module.exports = {
+export default {
   async create(request = req, response = res) {
     const {
       pdfTitle,

@@ -1,12 +1,12 @@
 {
-  "name": "pdf-creator",
+  "name": "pdflow-backend",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src/index.js",
-    "dev": "nodemon src/index"
+    "dev": "nodemon --exec babel-node src/index",
+    "build": "babel src/ --out-dir dist",
+    "start": "node dist/index.js"
   },
   "keywords": [
     "pdf",
@@ -25,6 +25,10 @@
     "html-pdf": "^2.2.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.12.10",
+    "@babel/core": "^7.12.10",
+    "@babel/node": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
     "nodemon": "^2.0.6"
   }
 }
