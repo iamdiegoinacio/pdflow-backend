@@ -17,8 +17,4 @@ app.use(express.json())
 app.use(router)
 app.use('/pdfs', express.static(path.join(__dirname, 'pdfs')))
 
-//starting server
-const port = process.env.PORT || 3333
-app.listen(port, () => {
-  console.log(`Server open in http://localhost:${port}/`)
-})
+export default app
