@@ -16,7 +16,7 @@ export default {
     }
 
     try {
-      const { sm_api_content: data } = await textSummarizeService(url, 16)
+      const { sm_api_content: data } = await textSummarizeService(url, 7)
       const textsArray = data.split('[BREAK]')
       const dataToCreatePDF = { title: pdfTitle, textsArray }
 
@@ -25,7 +25,7 @@ export default {
 
         const pdfName = `${Date.now()}-${pdfTitle.replace(/ /g, '_').toLowerCase()}.pdf`
         await pdfService(html, path.resolve(__dirname, '..', 'pdfs', pdfName))
-        return response.json({ pdfUrl: `http://localhost:3000/pdfs/${pdfName}` })
+        return response.status(201).json({ pdfUrl: `http://localhost:3000/pdfs/${pdfName}` })
       } catch (error) {
         return response.status(500).json({ message: 'Error generating pdf file' })
       }
