@@ -3,6 +3,7 @@ import textSummarizeService from '../services/textSummarizeService'
 import htmlService from '../services/htmlGeneratorService'
 import pdfService from '../services/pdfGeneratorService'
 import path from 'path'
+import { io } from '../app'
 
 export default {
   async create(request = req, response = res) {
@@ -25,6 +26,9 @@ export default {
 
         const pdfName = `${Date.now()}-${pdfTitle.replace(/ /g, '_').toLowerCase()}.pdf`
         await pdfService(html, path.resolve(__dirname, '..', 'pdfs', pdfName))
+
+        io.emit('updateRequestQuantity', {})
+
         return response.status(201).json({ pdfUrl: `http://localhost:3000/pdfs/${pdfName}` })
       } catch (error) {
         return response.status(500).json({ message: 'Error generating pdf file' })

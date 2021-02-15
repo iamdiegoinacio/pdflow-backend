@@ -5,6 +5,7 @@ import dotenv from 'dotenv'
 import cors from 'cors'
 import http from 'http'
 import socketIO from 'socket.io'
+import { io as connect } from 'socket.io-client'
 
 //.env config
 dotenv.config({ path: path.join(__dirname, '..', '.env') })
@@ -26,11 +27,38 @@ app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 
 //socket io
+const clientIO = connect('http://localhost:3000')
+let date = new Date()
+let requestQuantity = 0
+
 io.on('connection', socket => {
-  socket.emit('Hello', {
-    arg: 'Hello world'
+  socket.emit('requestQuantity', {
+    requestQuantity,
+    canRequest: requestQuantity < 100
   })
 })
+
+clientIO.on('updateRequestQuantity', () => {
+  requestQuantity++
+  io.emit('requestQuantity', {
+    requestQuantity,
+    canRequest: requestQuantity < 100
+  })
+})
+
+setInterval(() => {
+  const actualDate = new Date()
+
+  if (actualDate.getDate() != date.getDate()) {
+    date = actualDate
+    requestQuantity = 0
+
+    io.emit('requestQuantity', {
+      requestQuantity,
+      canRequest: requestQuantity < 100
+    })
+  }
+}, 60 * 1000)
 
 //routes
 app.use(router)
