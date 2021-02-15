@@ -25,6 +25,7 @@ app.use(cors())
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 
+//socket io
 io.on('connection', socket => {
   socket.emit('Hello', {
     arg: 'Hello world'
@@ -36,3 +37,4 @@ app.use(router)
 app.use('/pdfs', express.static(path.join(__dirname, 'pdfs')))
 
 export default server
+export { io }
