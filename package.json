@@ -24,5 +24,10 @@
     "@babel/node": "^7.12.10",
     "@babel/preset-env": "^7.12.11",
     "nodemon": "^2.0.6"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/renato3x/pdflow-backend"
+  },
+  "author": "Renato Pereira <pereirarenato21@gmail.com>"
 }
