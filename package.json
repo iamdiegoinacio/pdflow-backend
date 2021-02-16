@@ -1,7 +1,7 @@
 {
   "name": "pdflow-backend",
   "version": "1.0.0",
-  "main": "server.js",
+  "main": "app.js",
   "license": "MIT",
   "scripts": {
     "dev": "nodemon --exec babel-node src/app",
