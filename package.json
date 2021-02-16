@@ -4,9 +4,9 @@
   "main": "server.js",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon --exec babel-node src/server",
+    "dev": "nodemon --exec babel-node src/app",
     "build": "babel src/ --out-dir dist",
-    "start": "node dist/server"
+    "start": "node dist/app"
   },
   "dependencies": {
     "axios": "^0.20.0",
