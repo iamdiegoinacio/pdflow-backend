@@ -7,10 +7,10 @@ dotenv.config({ path: path.join(__dirname, '..', '..', '.env') })
 const smmry_api_key = process.env.SMMRY_API_KEY
 const axios = ax.default
 
-export default (URL, lenght = 7) => {
+export default (URL, length = 7) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const { data } = await axios.get(`https://api.smmry.com/?SM_API_KEY=${smmry_api_key}&SM_LENGTH=${lenght}&SM_WITH_BREAK&SM_URL=${URL}`)
+      const { data } = await axios.get(`https://api.smmry.com/?SM_API_KEY=${smmry_api_key}&SM_LENGTH=${length}&SM_WITH_BREAK&SM_URL=${URL}`)
 
       if (data.sm_api_error) {
         if (data.sm_api_message === 'THE PAGE IS IN AN UNRECOGNISABLE FORMAT') {

@@ -1,14 +1,10 @@
 import express from 'express'
 import router from './router'
 import path from 'path'
-import dotenv from 'dotenv'
 import cors from 'cors'
 import http from 'http'
 import socketIO from 'socket.io'
 import { io as connect } from 'socket.io-client'
-
-//.env config
-dotenv.config({ path: path.join(__dirname, '..', '.env') })
 
 //server instance
 const app = express()
